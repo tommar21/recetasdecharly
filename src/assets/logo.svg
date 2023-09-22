@@ -3,8 +3,8 @@
     xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none">
     <defs>
       <linearGradient id="MyGradient">
-        <stop offset="23%" stop-color="rgba(255, 215, 185, 1)" />
-        <stop offset="93%" stop-color="rgba(223, 159, 247, 1)" />
+        <stop offset="23%" stop-color="rgba(121, 121, 121, 1)" />
+        <stop offset="93%" stop-color="rgba(0, 0, 0, 1)" />
       </linearGradient>
     </defs>
     <g opacity="1" transform="rotate(0 -53.4212 106.843)">
