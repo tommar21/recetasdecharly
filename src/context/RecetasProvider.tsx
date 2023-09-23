@@ -1,30 +1,19 @@
-import React, { createContext, useState, useContext, Dispatch, SetStateAction } from "react"
-import { RecipeProps } from "../interfaces/interfaces"
-
-interface RecetasProviderProps {
-    children: JSX.Element | JSX.Element[]
-}
-
-interface defaultContextValuesTypes {
-    recipeToSearch: string,
-    setRecipeToSearch: Dispatch<SetStateAction<string>>,
-    recipes: RecipeProps[] | never[],
-    setRecipes: Dispatch<SetStateAction<RecipeProps[] | never[]>>,
-    openAlert: boolean,
-    setOpenAlert: Dispatch<SetStateAction<boolean>>,
-    messageAlert: string,
-    setMessageAlert: Dispatch<SetStateAction<string>>,
-}
+import React, { createContext, useState, useContext } from "react"
+import { defaultContextValuesTypes, RecetasProviderProps } from "../interfaces/interfaces"
 
 const defaultContextValues: defaultContextValuesTypes = {
     recipeToSearch: "",
     setRecipeToSearch: () => { },
-    recipes: [],
-    setRecipes: () => { },
-    openAlert: true,
-    setOpenAlert: () => { },
-    messageAlert: "",
-    setMessageAlert: () => { }
+    recipesList: [],
+    setRecipesList: () => { },
+    recipe: null,
+    setRecipe: () => { },
+    alertState: {
+        active: false,
+        message: "",
+        severity: undefined
+    },
+    setAlertState: () => { },
 }
 
 const RecetasContext = createContext(defaultContextValues)
@@ -33,21 +22,20 @@ export const useRecetasContext = () => useContext(RecetasContext)
 
 const RecetasProvider: React.FC<RecetasProviderProps> = ({ children }) => {
     const [recipeToSearch, setRecipeToSearch] = useState(defaultContextValues.recipeToSearch)
-    const [recipes, setRecipes] = useState(defaultContextValues.recipes)
-    const [openAlert, setOpenAlert] = useState(defaultContextValues.openAlert)
-    const [messageAlert, setMessageAlert] = useState(defaultContextValues.messageAlert)
-
+    const [recipesList, setRecipesList] = useState(defaultContextValues.recipesList)
+    const [alertState, setAlertState] = useState(defaultContextValues.alertState)
+    const [recipe, setRecipe] = useState(defaultContextValues.recipe)
 
     return (
         <RecetasContext.Provider value={{
             recipeToSearch,
             setRecipeToSearch,
-            recipes,
-            setRecipes,
-            openAlert,
-            setOpenAlert,
-            messageAlert,
-            setMessageAlert
+            recipesList,
+            setRecipesList,
+            recipe,
+            setRecipe,
+            alertState,
+            setAlertState,
         }}>
             {children}
         </RecetasContext.Provider>

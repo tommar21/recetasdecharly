@@ -5,14 +5,28 @@ import { ButtonStyled, InputBaseStyled, PaperStyled } from './style';
 import SearchIcon from '@mui/icons-material/Search';
 
 const SearchBar = () => {
-    const { recipeToSearch, setRecipeToSearch, setRecipes, setOpenAlert } = useRecetasContext()
+    const { recipeToSearch, setRecipeToSearch, setRecipesList, setAlertState } = useRecetasContext()
 
     const doGetRecipes = (query: string) => {
         getRecipes(query)
             .then((response: any) => {
                 let data = response.data;
-                console.log(data)
-                data.results === 0 ? setOpenAlert(true) : setRecipes(data.data.recipes)
+                if (data.results === 0) {
+                    setAlertState({
+                        active: true,
+                        message: "No se han encontrado recetas",
+                        severity: "error"
+                    })
+                    setRecipesList([])
+                }
+                else {
+                    setAlertState({
+                        active: true,
+                        message: "Búsqueda exitosa",
+                        severity: "success"
+                    })
+                    setRecipesList(data.data.recipes)
+                }
             })
             .catch((err) => {
                 console.log(err)
