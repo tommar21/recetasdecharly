@@ -2,7 +2,7 @@ import { Button, Paper, InputBase } from '@mui/material'
 import styled from 'styled-components'
 
 export const ButtonStyled = styled(Button)`
-width: 15rem;
+width: 12rem;
 height: 100%;
 border-radius: 50px !important;
 font-weight: bold;
@@ -25,7 +25,7 @@ interface PaperProps {
 };
 
 export const PaperStyled = styled(Paper)<PaperProps>`
-width: 40rem;
+width: 30rem;
 display: flex;
 align-items: center;
 justify-content: space-between;

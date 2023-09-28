@@ -5,11 +5,17 @@ export interface RecipeItemProps {
   image_url: string,
   publisher: string,
   title: string,
-  doGetARecipe: (id: string) => void
 }
 
-export interface RecipeProps {
-
+export interface RecipeProps extends RecipeItemProps{
+  servings: number,
+  source_url: string,
+  cooking_time: number,
+  ingredients: {
+    quantity: number | null,
+    unit: string,
+    description: string
+  }
 }
 
 export interface RecetasProviderProps {
@@ -27,8 +33,8 @@ export interface defaultContextValuesTypes {
   setRecipeToSearch: Dispatch<SetStateAction<string>>,
   recipesList: RecipeItemProps[] | never[],
   setRecipesList: Dispatch<SetStateAction<RecipeItemProps[] | never[]>>,
-  recipe: RecipeItemProps | null,
-  setRecipe: Dispatch<SetStateAction<RecipeItemProps | null>>,
+  recipe: RecipeProps | null,
+  setRecipe: Dispatch<SetStateAction<RecipeProps | null>>,
   alertState: alertStateProps,
   setAlertState: Dispatch<SetStateAction<alertStateProps>>,
 }

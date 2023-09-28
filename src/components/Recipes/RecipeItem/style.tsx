@@ -27,6 +27,7 @@ text-transform: uppercase;
 `;
 
 export const ListItemStyled = styled(ListItem)`
+padding: 10px 16px !important;
 &:hover {
     transition: transform 0.2s;
     background-color: #f9f5f3;

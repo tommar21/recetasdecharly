@@ -9,7 +9,7 @@ import { BoxStyled, BoxStyled2 } from './style';
 
 const Header: React.FC = () => {
   return (
-    <BoxStyled>
+    <BoxStyled id='header'>
       <Box component="img" src={logo} sx={{ width: "12rem" }}></Box>
       <SearchBar></SearchBar>
       <BoxStyled2>

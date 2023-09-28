@@ -6,12 +6,13 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 padding: 25px;
-background-color: #f9f5f3
+border-bottom: 1px solid rgba(0,0,0,0.06);
+background-color: #f9f5f3;
 `;
 
 export const BoxStyled2 = styled(Box)`
 & > * {
-    margin-right: 50px !important;
+    margin-right: 20px !important;
     background-image: linear-gradient(106.5deg, rgba(121, 121, 121, 0.8) 23%, rgba(0, 0, 0, 0.7) 93%);
     background-size: 100%;
     background-clip: text;
