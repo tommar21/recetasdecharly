@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRecetasContext } from '../../../context/RecetasProvider'
 //Material imports
-import { RecipeContainerStyled, BoxStyled, BoxStyled2, WrapperImg, ImgStyled, TitleStyled } from './style'
+import { RecipeContainerStyled, BoxStyled, BoxStyled2, WrapperImg, ImgStyled, TitleStyled, TypographyStyled } from './style'
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import { Box, Typography, SvgIcon } from '@mui/material'
 
@@ -14,7 +14,7 @@ const RecipeContainer = () => {
                 <BoxStyled>
                     <WrapperImg>
                         <ImgStyled component="img" src={recipe.image_url}></ImgStyled>
-                        <TitleStyled>{recipe.title}</TitleStyled>
+                        <TitleStyled variant='h1'><TypographyStyled variant='body1'>{recipe.title}</TypographyStyled></TitleStyled>
                     </WrapperImg>
                 </BoxStyled>
 

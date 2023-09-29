@@ -31,6 +31,7 @@ height: 40%;
     top: 0;
     left: 0;
     background-image: linear-gradient(to right bottom,rgba(121, 121, 121, 1),rgba(0, 0, 0, 1));
+    background-image: linear-gradient(to right bottom,rgba(121, 121, 121, 1),rgba(0, 0, 0, 1));
     opacity: .3;
     z-index: 1
 }
@@ -49,6 +50,24 @@ position: relative;
 `;
 
 export const TitleStyled = styled(Typography)`
+width: 70%;
+position: absolute;
+transform: translate(-50%,20%) skewY(-6deg);
+left: 50%;
+bottom: 0;
+color: #fff;
+font-weight: 700;
+font-size: 3.25rem;
+text-transform: uppercase;
+line-height: 1.95;
+text-align: center;
+`;
+
+export const TypographyStyled = styled(Typography)`
+background-image: linear-gradient(to right bottom,rgba(121, 121, 121, 1),rgba(0, 0, 0, 1));
+padding: 1.3rem 2rem;
+box-decoration-break: clone;
+-webkit-box-decoration-break: clone;
 `;
 
 export const BoxStyled2 = styled(Box)`

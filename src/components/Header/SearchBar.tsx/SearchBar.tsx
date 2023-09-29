@@ -5,6 +5,7 @@ import { } from '../../../interfaces/interfaces';
 //Material imports
 import { ButtonStyled, InputBaseStyled, PaperStyled } from './style';
 import SearchIcon from '@mui/icons-material/Search';
+import { useState } from 'react';
 
 const SearchBar = () => {
     const { recipeToSearch, setRecipeToSearch, setRecipesList, setAlertState } = useRecetasContext()
