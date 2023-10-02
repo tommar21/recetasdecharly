@@ -1,4 +1,4 @@
-import { ListItemText, Avatar, ListItem } from '@mui/material'
+import { ListItemText, Avatar, ListItem, ListItemAvatar } from '@mui/material'
 import styled from 'styled-components'
 
 export const AvatarStyled = styled(Avatar)`
@@ -27,10 +27,14 @@ text-transform: uppercase;
 `;
 
 export const ListItemStyled = styled(ListItem)`
-padding: 10px 16px !important;
+padding: 12px 16px !important;
 &:hover {
     transition: transform 0.2s;
     background-color: #f9f5f3;
     transform: translateY(-4px)
 }
+`;
+
+export const ListItemAvatarStyled = styled(ListItemAvatar)`
+margin-top: 0px !important
 `;

@@ -8,9 +8,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
 
 const SearchBar = () => {
-    const { recipeToSearch, setRecipeToSearch, setRecipesList, setAlertState } = useRecetasContext()
+    const { setRecipesList, setAlertState, setRecipe, setLoading } = useRecetasContext()
+    const [recipeToSearch, setRecipeToSearch] = useState<string>("")
 
     const doGetRecipes = (query: string) => {
+        setRecipe(null)
+        setLoading(true)
         getRecipes(query)
             .then((response: AxiosResponse) => {
                 const data = response.data;
@@ -35,6 +38,7 @@ const SearchBar = () => {
             .catch((err) => {
                 console.log(err)
             })
+            .finally(() => setLoading(false))
     }
 
     return (

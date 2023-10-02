@@ -1,12 +1,47 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRecetasContext } from '../../../context/RecetasProvider'
+import { RecipeItemProps } from '../../../interfaces/interfaces';
 //Material imports
-import { RecipeContainerStyled, BoxStyled, BoxStyled2, WrapperImg, ImgStyled, TitleStyled, TypographyStyled } from './style'
-import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
-import { Box, Typography, SvgIcon } from '@mui/material'
+import { RecipeContainerStyled, BoxStyled, BoxStyled2, DetailsContainer, IngredientsContainer, WrapperImg, ImgStyled, TitleStyled, TypographyStyled, TypographyStyled2, ButtonPeople, IconButtonStyled, InstructionsContainer, ButtonStyled } from './style'
+import { SentimentSatisfiedAlt, AccessTime, PeopleOutline, AddCircleOutline, RemoveCircleOutline, BookmarkBorder, Done, East, Bookmark } from '@mui/icons-material/';
+import { Typography, SvgIcon, Link } from '@mui/material'
 
 const RecipeContainer = () => {
-    const { recipe } = useRecetasContext()
+    const { recipe, setRecipe } = useRecetasContext()
+    const [bookmarkActive, setBookmarkActive] = useState<boolean>(false)
+
+    useEffect(() => {
+        setBookmarkActive(Boolean(JSON.parse(localStorage.getItem('bookmarks')!)?.find((bookmark: RecipeItemProps) => bookmark.id === recipe?.id)))
+    }, [recipe?.id])
+
+    const changeServings = (adding: boolean) => {
+        if (recipe) {
+            //impedir restar si hay una persona
+            if (recipe.servings === 1 && !adding) return
+            //add or rest servings
+            let newRecipe = { ...recipe, servings: adding ? recipe.servings + 1 : recipe.servings - 1 }
+            //add or rest ingredients
+            newRecipe.ingredients.forEach((ingredient) => {
+                if (ingredient.quantity) ingredient.quantity = ((ingredient.quantity * newRecipe.servings) / recipe.servings)
+            })
+            //set recipe
+            setRecipe(newRecipe)
+        }
+    }
+
+    const setBookmarks = (bookmarkToSet: RecipeItemProps) => {
+        let existingBookmarks: RecipeItemProps[] | null = JSON.parse(localStorage.getItem('bookmarks')!)
+
+        localStorage.setItem("bookmarks", JSON.stringify(
+            existingBookmarks ? (
+                existingBookmarks.filter((existingBookmark) => existingBookmark.id === bookmarkToSet.id).length === 0 ?
+                    existingBookmarks.concat([bookmarkToSet]) :
+                    existingBookmarks.filter((existingBookmark) => existingBookmark.id !== bookmarkToSet.id)
+            ) : [bookmarkToSet]
+        ))
+
+        setBookmarkActive(!bookmarkActive)
+    }
 
     return (
         <RecipeContainerStyled>
@@ -14,17 +49,59 @@ const RecipeContainer = () => {
                 <BoxStyled>
                     <WrapperImg>
                         <ImgStyled component="img" src={recipe.image_url}></ImgStyled>
-                        <TitleStyled variant='h1'><TypographyStyled variant='body1'>{recipe.title}</TypographyStyled></TitleStyled>
+                        <TitleStyled variant='h1'><TypographyStyled variant='body1' component="span">{recipe.title}</TypographyStyled></TitleStyled>
                     </WrapperImg>
+                    <DetailsContainer>
+                        <BoxStyled2>
+                            <TypographyStyled2 variant="subtitle2">
+                                <SvgIcon fontSize='large'>{<AccessTime />}</SvgIcon>
+                                <Typography variant='subtitle2' component="span">{recipe.cooking_time}</Typography>
+                                minutos
+                            </TypographyStyled2>
+                            <TypographyStyled2 variant="subtitle2">
+                                <SvgIcon fontSize='large'>{<PeopleOutline />}</SvgIcon>
+                                <Typography component="span">{recipe.servings}</Typography>
+                                personas
+                                <ButtonPeople fontSize='small' onClick={() => changeServings(true)}>{<AddCircleOutline />}</ButtonPeople>
+                                <ButtonPeople fontSize='small' onClick={() => changeServings(false)}>{<RemoveCircleOutline />}</ButtonPeople>
+                            </TypographyStyled2>
+                        </BoxStyled2>
+                        <IconButtonStyled
+                            onClick={() => setBookmarks({
+                                id: recipe.id,
+                                image_url: recipe.image_url,
+                                publisher: recipe.publisher,
+                                title: recipe.title,
+                            })}
+                        >
+                            {bookmarkActive ? <Bookmark /> : <BookmarkBorder />}
+                        </IconButtonStyled>
+                    </DetailsContainer>
+                    <IngredientsContainer>
+                        <Typography variant='h6'>Ingredientes de la receta</Typography>
+                        {recipe.ingredients.map((ingredient, index) =>
+                            <BoxStyled2 key={index}>
+                                <SvgIcon fontSize='small'><Done></Done></SvgIcon>
+                                <Typography variant="body2">{ingredient.quantity} {ingredient.unit} {ingredient.description}</Typography>
+                            </BoxStyled2>)}
+                    </IngredientsContainer>
+                    <InstructionsContainer>
+                        <Typography variant='h6'>¿Cómo la preparo?</Typography>
+                        <Typography variant="body2">Esta receta fue cuidadosamente creada y testeada por <Typography component={"span"}>{recipe.publisher}</Typography>. Por favor, mira las instrucciones en su website.</Typography>
+                        <ButtonStyled variant="contained" endIcon={<East />}>
+                            <Link href={recipe.source_url} target="_blank" rel="noreferrer">Instrucciones</Link>
+                        </ButtonStyled>
+                    </InstructionsContainer>
                 </BoxStyled>
 
             ) : (
                 <BoxStyled2>
-                    <SvgIcon fontSize='large'><SentimentSatisfiedAltIcon></SentimentSatisfiedAltIcon></SvgIcon>
+                    <SvgIcon fontSize='large'><SentimentSatisfiedAlt></SentimentSatisfiedAlt></SvgIcon>
                     <Typography variant="h6">{"Podés empezar por buscar una receta o ingrediente (en inglés)"}</Typography>
                 </BoxStyled2>
-            )}
-        </RecipeContainerStyled>
+            )
+            }
+        </RecipeContainerStyled >
     )
 }
 

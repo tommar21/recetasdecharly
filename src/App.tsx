@@ -1,12 +1,12 @@
 import React from 'react'
 import RecetasProvider from './context/RecetasProvider'
-import Wrapper from './components/Wrapper/Wrapper'
+import Container from './components/Container/Container'
 
 const App: React.FC = () => {
 
   return (
     <RecetasProvider>
-      <Wrapper />
+      <Container />
     </RecetasProvider>
   )
 }

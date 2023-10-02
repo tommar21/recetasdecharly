@@ -1,21 +1,57 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from './../../assets/logo.svg'
 import SearchBar from './SearchBar.tsx/SearchBar';
+import RecipeItem from '../RecipeItem/RecipeItem';
+import { RecipeItemProps } from '../../interfaces/interfaces';
+import { useRecetasContext } from '../../context/RecetasProvider';
+import FormModal from './FormModal/FormModal';
 // Material imports
-import { Box, Button } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import { BoxStyled, BoxStyled2 } from './style';
+import { Button, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Bookmark, Add, WarningAmber } from '@mui/icons-material';
+import { BoxStyled, BoxStyled2, MenuItemStyled, MenuBookmarks, Logo } from './style';
 
 const Header: React.FC = () => {
+  const { setRecipesList } = useRecetasContext()
+  //for menu
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const openMenu = Boolean(anchorEl);
+  //for modal
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
+
   return (
     <BoxStyled id='header'>
-      <Box component="img" src={logo} sx={{ width: "12rem" }}></Box>
+      <Logo component="img" src={logo}></Logo>
       <SearchBar></SearchBar>
       <BoxStyled2>
-        <Button startIcon={<AddIcon />}>Añadir receta</Button>
-        <Button startIcon={<BookmarkIcon />}>Ver guardadas</Button>
+        <Button startIcon={<Add />} onClick={() => setOpenModal(true)}>Añadir receta</Button>
+        <Button startIcon={<Bookmark />} onClick={(event: React.MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget)}>Ver guardadas</Button>
+        <MenuBookmarks
+          anchorEl={anchorEl}
+          open={openMenu}
+          onClose={() => setAnchorEl(null)}
+        >
+          {localStorage.getItem("bookmarks") && JSON.parse(localStorage.getItem("bookmarks")!).length !== 0 ? (JSON.parse(localStorage.getItem("bookmarks")!).map((bookmark: RecipeItemProps, index: number) => (
+            <MenuItem
+              onClick={() => {
+                setAnchorEl(null)
+                setRecipesList([])
+              }}
+              key={index}
+              aria-labelledby='basic-button'>
+              <RecipeItem id={bookmark.id} image_url={bookmark.image_url} publisher={bookmark.publisher} title={bookmark.title} />
+            </MenuItem>
+          ))) : (
+            <MenuItemStyled>
+              <ListItemIcon>
+                <WarningAmber fontSize="small" />
+              </ListItemIcon>
+              <ListItemText>{"No tienes recetas guardadas aún. Encontrá alguna que te guste y marcala ;)"}</ListItemText>
+            </MenuItemStyled>
+          )}
+
+        </MenuBookmarks>
       </BoxStyled2>
+      <FormModal openModal={openModal} setOpenModal={setOpenModal} />
     </BoxStyled >
   )
 }

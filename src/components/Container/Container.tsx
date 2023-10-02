@@ -7,7 +7,7 @@ import Recipes from '../Recipes/Recipes'
 //Material imports
 import { Main } from './style';
 
-const Wrapper = () => {
+const Container = () => {
 
     const { alertState, setAlertState } = useRecetasContext()
 
@@ -43,4 +43,4 @@ const Wrapper = () => {
     )
 }
 
-export default Wrapper
+export default Container

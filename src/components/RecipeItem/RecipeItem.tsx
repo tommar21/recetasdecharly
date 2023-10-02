@@ -1,11 +1,10 @@
 import React from 'react'
-import { RecipeItemProps, RecipeProps } from '../../../interfaces/interfaces'
-import { getARecipe } from '../../../services/services'
+import { RecipeItemProps, RecipeProps } from '../../interfaces/interfaces'
+import { getARecipe } from '../../services/services'
 import { AxiosResponse } from 'axios'
-import { useRecetasContext } from '../../../context/RecetasProvider'
+import { useRecetasContext } from '../../context/RecetasProvider'
 //Material imports
-import { AvatarStyled, ListItemStyled, ListItemTextStyled } from './style'
-import { ListItemAvatar } from '@mui/material'
+import { AvatarStyled, ListItemStyled, ListItemTextStyled, ListItemAvatarStyled } from './style'
 
 const ReceipeItem: React.FC<RecipeItemProps> = ({ id, image_url, publisher, title }) => {
 
@@ -26,9 +25,9 @@ const ReceipeItem: React.FC<RecipeItemProps> = ({ id, image_url, publisher, titl
   return (
     <>
       <ListItemStyled alignItems="flex-start" onClick={() => { doGetARecipe(id) }}>
-        <ListItemAvatar>
+        <ListItemAvatarStyled>
           <AvatarStyled alt="Receta" src={image_url} />
-        </ListItemAvatar>
+        </ListItemAvatarStyled>
         <ListItemTextStyled
           primary={title}
           secondary={publisher}
