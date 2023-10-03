@@ -48,7 +48,7 @@ const FormModal: React.FC<FormModalProps> = ({ openModal, setOpenModal }) => {
     const [tagList, setTagList] = useState(tagListDefault)
 
     const setTagValue = (indexTag: number, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const isAnIngredient = Array.from(event.currentTarget.labels!)[0].textContent?.includes("Ingredient");
+        const isAnIngredient = Array.from(event.currentTarget.labels!)[0].textContent!.includes("Ingredient");
         const tagListToBeSetted = [...tagList];
         tagListToBeSetted.forEach((tag, index) => {
             if (isAnIngredient && tag.label === "Ingredients" && Array.isArray(tag.value)) tag.value[indexTag] = event.currentTarget.value
