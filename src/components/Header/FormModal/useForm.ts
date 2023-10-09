@@ -63,27 +63,28 @@ const useForm = (setOpenModal: any) => {
 
     const onInputChange = (indexTag: number, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, isAnIngredient?: true) => {
         const tagListToBeSetted = [...tagList];
-        tagListToBeSetted.forEach((tag, index) => {
-            if (isAnIngredient && tag.label === "Ingredients" && Array.isArray(tag.value)) tag.value[indexTag] = event.currentTarget.value
-            else if (!isAnIngredient && index === indexTag) tag.value = event.currentTarget.value
+        tagListToBeSetted.forEach((item, index) => {
+            if (isAnIngredient && item.tag === "ingredients" && Array.isArray(item.value)) item.value[indexTag] = event.currentTarget.value
+            else if (!isAnIngredient && index === indexTag) item.value = event.currentTarget.value
         })
         setTagList(tagListToBeSetted)
     }
 
     const addIngredient = () => {
-        const tagListToBeSetted = tagList.filter((tag) => tag.label !== "Ingredients");
-        const ingredients = tagList.find(tag => tag.label === "Ingredients")!
+        const tagListToBeSetted = tagList.filter((item) => item.tag !== "ingredients");
+        const ingredients = tagList.find(item => item.tag === "ingredients")!
         ingredients.value.push("")
         tagListToBeSetted.push(ingredients)
         setTagList(tagListToBeSetted)
     }
 
     const deleteIngredient = (indexIngredient: number) => {
-        const tagListToBeSetted = tagList.filter((tag) => tag.label !== "Ingredients");
-        const ingredients = tagList.find(tag => tag.label === "Ingredients")!
+        const tagListToBeSetted = tagList.filter((item) => item.tag !== "ingredients");
+        const ingredients = tagList.find(item => item.label === "ingredients")!
         ingredients.value.splice(indexIngredient, 1)
         tagListToBeSetted.push(ingredients)
         setTagList(tagListToBeSetted)
+        setTagsErrors({})
     }
 
     const addRecipe = () => {
@@ -128,6 +129,7 @@ const useForm = (setOpenModal: any) => {
             })
             .finally(() => {
                 setOpenModal(false)
+                setTagList(tagListDefault)
             })
     }
 
