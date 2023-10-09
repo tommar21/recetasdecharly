@@ -57,6 +57,9 @@ background: linear-gradient(106.5deg, rgba(121, 121, 121, 0.8) 23%, rgba(0, 0, 0
 &:hover: { 
     background: linear-gradient(106.5deg, rgba(121, 121, 121, 1) 23%, rgba(0, 0, 0, 1) 93%);
 }
+&:disabled {
+    color: white !important;
+}
 `;
 
 export const ButtonContainer = styled(Box)`
