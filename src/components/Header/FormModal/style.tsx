@@ -1,4 +1,4 @@
-import { Box, Modal, TextField, Button } from '@mui/material'
+import { Box, Modal, TextField, Button, Typography } from '@mui/material'
 import styled from 'styled-components'
 
 interface BoxStyledProps {
@@ -7,7 +7,22 @@ interface BoxStyledProps {
 }
 
 export const BoxStyled = styled(Box) <BoxStyledProps>`
-width: 30rem;
+width: 43rem;
+height: 25rem;
+overflow: hidden scroll !important;
+scrollbar-width: thin;
+scrollbar-color: transparent;  
+&::-webkit-scrollbar {
+    width: 8px;
+};
+&::-webkit-scrollbar-track {
+    background: transparent;
+};
+&::-webkit-scrollbar-thumb {
+    background-color: #1976d2 !important;
+    background: linear-gradient(106.5deg, rgba(121, 121, 121, 0.8) 23%, rgba(0, 0, 0, 0.8) 93%);
+    border-radius: 20px;
+};
 padding: 2rem;
 border-radius: 10px;
 display: flex;
@@ -29,6 +44,7 @@ align-items: center
 
 
 export const TextFieldStyled = styled(TextField)`
+width: 13rem
 `;
 
 export const ButtonStyled = styled(Button)`
@@ -47,4 +63,19 @@ export const ButtonContainer = styled(Box)`
 width: 100%;
 padding-top: 50px;
 text-align: center
+`;
+
+export const ButtonAdd = styled(Box)`
+cursor: pointer;
+margin-left: 10px;
+transition: transform .2s !important;
+&:hover {
+    transform: scale(1.1)
+ };
+`;
+
+export const TypographyStyled = styled(Typography)`
+display: flex;
+align-items: center;
+gap: 1rem
 `;
