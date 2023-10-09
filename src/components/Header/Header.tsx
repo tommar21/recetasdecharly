@@ -23,8 +23,8 @@ const Header: React.FC = () => {
       <Logo component="img" src={logo}></Logo>
       <SearchBar></SearchBar>
       <BoxStyled2>
-        <Button startIcon={<Add />} onClick={() => setOpenModal(true)}>Añadir receta</Button>
-        <Button startIcon={<Bookmark />} onClick={(event: React.MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget)}>Ver guardadas</Button>
+        <Button startIcon={<Add />} onClick={() => setOpenModal(true)}>Add recipe</Button>
+        <Button startIcon={<Bookmark />} onClick={(event: React.MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget)}>Bookmarks</Button>
         <MenuBookmarks
           anchorEl={anchorEl}
           open={openMenu}
@@ -45,7 +45,7 @@ const Header: React.FC = () => {
               <ListItemIcon>
                 <WarningAmber fontSize="small" />
               </ListItemIcon>
-              <ListItemText>{"No tienes recetas guardadas aún. Encontrá alguna que te guste y marcala ;)"}</ListItemText>
+              <ListItemText>{"You don't have saved recipes yet. Find one you like and bookmark it. ;)"}</ListItemText>
             </MenuItemStyled>
           )}
 

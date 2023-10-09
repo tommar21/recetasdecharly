@@ -20,7 +20,7 @@ const RecipesList = () => {
                         )) : (
                         <BoxStyled2>
                             <SvgIcon fontSize='large'><SentimentVeryDissatisfiedIcon></SentimentVeryDissatisfiedIcon></SvgIcon>
-                            <Typography variant="h6">{'Los términos de búsqueda son limitados. Buscá "pizza" u otra comida de esta '}<LinkStyled href="https://forkify-api.herokuapp.com/phrases.html" target="_blank" rel="noreferrer" underline='none'>lista</LinkStyled> </Typography>
+                            <Typography variant="h6">{'Search terms are limited. Search for "pizza" or another food from this '}<LinkStyled href="https://forkify-api.herokuapp.com/phrases.html" target="_blank" rel="noreferrer" underline='none'>list</LinkStyled> </Typography>
                         </BoxStyled2>
                     )) : (
                     <BoxStyled2>

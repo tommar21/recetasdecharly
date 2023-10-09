@@ -56,12 +56,12 @@ const RecipeContainer = () => {
                             <TypographyStyled2 variant="subtitle2">
                                 <SvgIcon fontSize='large'>{<AccessTime />}</SvgIcon>
                                 <Typography variant='subtitle2' component="span">{recipe.cooking_time}</Typography>
-                                minutos
+                                minutes
                             </TypographyStyled2>
                             <TypographyStyled2 variant="subtitle2">
                                 <SvgIcon fontSize='large'>{<PeopleOutline />}</SvgIcon>
                                 <Typography component="span">{recipe.servings}</Typography>
-                                personas
+                                servings
                                 <ButtonPeople fontSize='small' onClick={() => changeServings(true)}>{<AddCircleOutline />}</ButtonPeople>
                                 <ButtonPeople fontSize='small' onClick={() => changeServings(false)}>{<RemoveCircleOutline />}</ButtonPeople>
                             </TypographyStyled2>
@@ -78,7 +78,7 @@ const RecipeContainer = () => {
                         </IconButtonStyled>
                     </DetailsContainer>
                     <IngredientsContainer>
-                        <Typography variant='h6'>Ingredientes de la receta</Typography>
+                        <Typography variant='h6'>Recipe ingredients</Typography>
                         {recipe.ingredients.map((ingredient, index) =>
                             <BoxStyled2 key={index}>
                                 <SvgIcon fontSize='small'><Done></Done></SvgIcon>
@@ -86,10 +86,10 @@ const RecipeContainer = () => {
                             </BoxStyled2>)}
                     </IngredientsContainer>
                     <InstructionsContainer>
-                        <Typography variant='h6'>¿Cómo la preparo?</Typography>
-                        <Typography variant="body2">Esta receta fue cuidadosamente creada y testeada por <Typography component={"span"}>{recipe.publisher}</Typography>. Por favor, mira las instrucciones en su website.</Typography>
+                        <Typography variant='h6'>HOW TO COOK IT</Typography>
+                        <Typography variant="body2">This recipe was carefully designed and tested by <Typography component={"span"}>{recipe.publisher}</Typography>.  Please check out directions at their website.</Typography>
                         <ButtonStyled variant="contained" endIcon={<East />}>
-                            <Link href={recipe.source_url} target="_blank" rel="noreferrer">Instrucciones</Link>
+                            <Link href={recipe.source_url} target="_blank" rel="noreferrer">Instructions</Link>
                         </ButtonStyled>
                     </InstructionsContainer>
                 </BoxStyled>
@@ -97,7 +97,7 @@ const RecipeContainer = () => {
             ) : (
                 <BoxStyled2>
                     <SvgIcon fontSize='large'><SentimentSatisfiedAlt></SentimentSatisfiedAlt></SvgIcon>
-                    <Typography variant="h6">{"Podés empezar por buscar una receta o ingrediente (en inglés)"}</Typography>
+                    <Typography variant="h6">{"Start by searching for a recipe or an ingredient. Have fun!"}</Typography>
                 </BoxStyled2>
             )
             }
