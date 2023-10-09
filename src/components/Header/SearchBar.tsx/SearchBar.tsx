@@ -21,7 +21,7 @@ const SearchBar = () => {
                 if (data.results === 0) {
                     setAlertState({
                         active: true,
-                        message: "No se han encontrado recetas",
+                        message: "No recipes found",
                         severity: "error"
                     })
                     setRecipesList([])
@@ -29,7 +29,7 @@ const SearchBar = () => {
                 else {
                     setAlertState({
                         active: true,
-                        message: "Búsqueda exitosa",
+                        message: "Successful search",
                         severity: "success"
                     })
                     setRecipesList(recipesList)
@@ -45,7 +45,7 @@ const SearchBar = () => {
         <PaperStyled component="form" noValidate autoComplete="off">
             <InputBaseStyled
                 id="inputRecipe"
-                placeholder="Buscá tu plato ideal"
+                placeholder="Find your ideal meal"
                 onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
                     if (e.code === "Enter") {
                         e.preventDefault()
@@ -54,7 +54,7 @@ const SearchBar = () => {
                 }}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRecipeToSearch(e.target.value)}
             />
-            <ButtonStyled variant="contained" startIcon={<SearchIcon />} onClick={() => doGetRecipes(recipeToSearch)}>Buscar</ButtonStyled>
+            <ButtonStyled variant="contained" startIcon={<SearchIcon />} onClick={() => doGetRecipes(recipeToSearch)}>Search</ButtonStyled>
         </PaperStyled>
     )
 }

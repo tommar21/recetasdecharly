@@ -111,14 +111,14 @@ const useForm = (setOpenModal: any) => {
                 if (data.status === "success") {
                     setAlertState({
                         active: true,
-                        message: "Tu receta se ha añadido correctamente",
+                        message: "Your recipe has been added correctly",
                         severity: "success"
                     })
                 }
                 else {
                     setAlertState({
                         active: true,
-                        message: "No se ha podido añadir tu receta",
+                        message: "Your recipe could not be added",
                         severity: "error"
                     })
                 }
