@@ -17,6 +17,7 @@ export interface RecipeItemProps {
   image_url: string,
   publisher: string,
   title: string,
+  onClick?: () => void
 }
 
 export interface RecipeProps extends RecipeItemProps {

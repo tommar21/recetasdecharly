@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { postRecipe } from '../../../services/services';
 import { AxiosResponse } from 'axios';
 import { useRecetasContext } from '../../../context/RecetasProvider';
+import { setBookmarks } from '../../../utils/setBookmark';
 
 const useForm = (setOpenModal: any) => {
     const tagListDefault: { tag: string, label?: string, type?: string, value: any }[] = [
@@ -55,8 +56,9 @@ const useForm = (setOpenModal: any) => {
     const validateTagValue = (tag: string, value: string) => {
         let error: string | null = "Required";
         if (value === "") return error
-        else if (["cooking_time", "servings"].indexOf(tag) !== -1 && Number(value) < 1) error = "No puede tener un valor menor a 1";
-        else if (tag === "ingredient" && !(/^[0-9]?\d*(\.\d+)?,[A-Za-z]*?,[A-Za-z]+$/g).test(value)) error = "Formato incorrecto"
+        else if (["cooking_time", "servings", "ingredient"].indexOf(tag) === -1 && value.length < 5) error = "Value must be at least 5 characters long"
+        else if (["cooking_time", "servings"].indexOf(tag) !== -1 && Number(value) < 1) error = "It cannot have a value less than 1";
+        else if (tag === "ingredient" && !(/^[0-9]?\d*(\.\d+)?,[A-Za-z]*?,[A-Za-z\s]*$/g).test(value)) error = "Incorrect format"
         else error = null;
         return error
     }
@@ -80,7 +82,7 @@ const useForm = (setOpenModal: any) => {
 
     const deleteIngredient = (indexIngredient: number) => {
         const tagListToBeSetted = tagList.filter((item) => item.tag !== "ingredients");
-        const ingredients = tagList.find(item => item.label === "ingredients")!
+        const ingredients = tagList.find(item => item.tag === "ingredients")!
         ingredients.value.splice(indexIngredient, 1)
         tagListToBeSetted.push(ingredients)
         setTagList(tagListToBeSetted)
@@ -89,7 +91,7 @@ const useForm = (setOpenModal: any) => {
 
     const addRecipe = () => {
         const tagListClone = [...tagList];
-        const data= {};
+        const data = {};
         const ingredientsValue = tagListClone.find(item => item.tag === "ingredients")!.value.map((item: any) => {
             const values = item.split(",");
             return ({
@@ -111,9 +113,17 @@ const useForm = (setOpenModal: any) => {
                 if (data.status === "success") {
                     setAlertState({
                         active: true,
-                        message: "Your recipe has been added correctly",
+                        message: "Your recipe has been added correctly to bookmarks",
                         severity: "success"
                     })
+                    const recipe = {
+                        id: data.data.recipe.id,
+                        image_url: data.data.recipe.image_url,
+                        publisher: data.data.recipe.publisher,
+                        title: data.data.recipe.title,
+                    }
+
+                    setBookmarks(recipe)
                 }
                 else {
                     setAlertState({

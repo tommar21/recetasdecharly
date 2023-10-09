@@ -6,7 +6,7 @@ import { RecipeItemProps } from '../../interfaces/interfaces';
 import { useRecetasContext } from '../../context/RecetasProvider';
 import FormModal from './FormModal/FormModal';
 // Material imports
-import { Button, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Button, ListItemIcon, ListItemText } from '@mui/material';
 import { Bookmark, Add, WarningAmber } from '@mui/icons-material';
 import { BoxStyled, BoxStyled2, MenuItemStyled, MenuBookmarks, Logo } from './style';
 
@@ -31,15 +31,17 @@ const Header: React.FC = () => {
           onClose={() => setAnchorEl(null)}
         >
           {localStorage.getItem("bookmarks") && JSON.parse(localStorage.getItem("bookmarks")!).length !== 0 ? (JSON.parse(localStorage.getItem("bookmarks")!).map((bookmark: RecipeItemProps, index: number) => (
-            <MenuItem
+            <RecipeItem
+              id={bookmark.id}
+              image_url={bookmark.image_url}
+              publisher={bookmark.publisher}
+              title={bookmark.title}
               onClick={() => {
                 setAnchorEl(null)
                 setRecipesList([])
               }}
               key={index}
-              aria-labelledby='basic-button'>
-              <RecipeItem id={bookmark.id} image_url={bookmark.image_url} publisher={bookmark.publisher} title={bookmark.title} />
-            </MenuItem>
+            />
           ))) : (
             <MenuItemStyled>
               <ListItemIcon>

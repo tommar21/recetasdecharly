@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRecetasContext } from '../../../context/RecetasProvider'
 import { RecipeItemProps } from '../../../interfaces/interfaces';
+import { setBookmarks } from '../../../utils/setBookmark';
 //Material imports
 import { RecipeContainerStyled, BoxStyled, BoxStyled2, DetailsContainer, IngredientsContainer, WrapperImg, ImgStyled, TitleStyled, TypographyStyled, TypographyStyled2, ButtonPeople, IconButtonStyled, InstructionsContainer, ButtonStyled } from './style'
 import { SentimentSatisfiedAlt, AccessTime, PeopleOutline, AddCircleOutline, RemoveCircleOutline, BookmarkBorder, Done, East, Bookmark } from '@mui/icons-material/';
@@ -29,17 +30,8 @@ const RecipeContainer = () => {
         }
     }
 
-    const setBookmarks = (bookmarkToSet: RecipeItemProps) => {
-        let existingBookmarks: RecipeItemProps[] | null = JSON.parse(localStorage.getItem('bookmarks')!)
-
-        localStorage.setItem("bookmarks", JSON.stringify(
-            existingBookmarks ? (
-                existingBookmarks.filter((existingBookmark) => existingBookmark.id === bookmarkToSet.id).length === 0 ?
-                    existingBookmarks.concat([bookmarkToSet]) :
-                    existingBookmarks.filter((existingBookmark) => existingBookmark.id !== bookmarkToSet.id)
-            ) : [bookmarkToSet]
-        ))
-
+    const handleSetBookmarks = (bookmarkToSet: RecipeItemProps) => {
+        setBookmarks(bookmarkToSet)
         setBookmarkActive(!bookmarkActive)
     }
 
@@ -67,7 +59,7 @@ const RecipeContainer = () => {
                             </TypographyStyled2>
                         </BoxStyled2>
                         <IconButtonStyled
-                            onClick={() => setBookmarks({
+                            onClick={() => handleSetBookmarks({
                                 id: recipe.id,
                                 image_url: recipe.image_url,
                                 publisher: recipe.publisher,
